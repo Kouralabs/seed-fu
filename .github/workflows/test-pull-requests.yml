@@ -2,11 +2,11 @@ name: Run tests and linters
 
 on: [push, pull_request]
 
-runs-on: ${{ matrix.os }}
+#runs-on:
 
 strategy:
   matrix:
-    os: [ubuntu-18.04]
+    #os: [ubuntu-18.04]
     RAILS_VERSION:
       - 6.0.0
       - 5.2.0
