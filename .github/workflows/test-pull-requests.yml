@@ -45,10 +45,10 @@ jobs:
     - name: Build and test
       env:
         RAILS_ENV: test
-        RAILS_VERSION: ${{ matrix.RAILS-VERSION }}
+        RAILS_VERSION: ${{ matrix.RAILS_VERSION }}
       run: |
         sudo apt-get -yqq install libpq-dev libmysqlclient-dev libsqlite3-dev
         gem install bundler
-        echo "what ${{ matrix.RAILS-VERSION }}"
+        echo "what ${{ matrix.RAILS_VERSION }}"
         bundle install --gemfile gemfiles/ci.gemfile --jobs 4 --retry 3
         DB=postgresql bundle exec --gemfile gemfiles/ci.gemfile rspec
