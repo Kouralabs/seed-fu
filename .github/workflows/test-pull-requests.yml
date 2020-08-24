@@ -2,6 +2,21 @@ name: Run tests and linters
 
 on: [push, pull_request]
 
+runs-on: ${{ matrix.os }}
+
+strategy:
+  matrix:
+    os: [ubuntu-18.04]
+    RAILS_VERSION:
+      - 6.0.0
+      - 5.2.0
+        #- 5.1.0
+        #- 5.0.0
+        #- 4.2.0
+        #- 4.1.0
+        #- 3.2.0
+        #- 3.1.0
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,13 +41,11 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.6
-    - name: Build and test with Rake
+    - name: Build and test
       env:
-        PGHOST: 127.0.0.1
-        PGUSER: postgres
         RAILS_ENV: test
       run: |
         sudo apt-get -yqq install libpq-dev libmysqlclient-dev libsqlite3-dev
         gem install bundler
-        bundle install --jobs 4 --retry 3
-        DB=postgresql rspec
+        RAILS_VERSION=${{ matrix.RAILS-VERSION }} bundle install --gemfile gemfiles/ci.gemfile --jobs 4 --retry 3
+        DB=postgresql bundle exec --gemfile gemfiles/ci.gemfile rspec

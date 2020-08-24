@@ -1,0 +1,11 @@
+source 'https://rubygems.org'
+
+rails_version = ENV['RAILS_VERSION']
+
+if rails_version.nil?
+  gem 'rails'
+else
+  gem 'rails', "~> #{rails_version}"
+end
+
+gemspec path: '..'
