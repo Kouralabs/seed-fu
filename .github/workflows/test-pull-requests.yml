@@ -1,4 +1,6 @@
-name: Run testssetup-ciand linters
+name: Run tests and linters
+
+on: [push, pull_request]
 
 jobs:
   build:
