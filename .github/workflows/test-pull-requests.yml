@@ -50,9 +50,10 @@ jobs:
         POSTGRES_USER: postgres
         POSTGRES_PASS: postgres
         POSTGRES_DB: seed_fu_test
+        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
       run: |
         sudo apt-get -yqq install libpq-dev libmysqlclient-dev libsqlite3-dev
-        gem install bundler
+        gem install bundler -q
         echo "what ${{ matrix.RAILS_VERSION }}"
-        bundle install --gemfile gemfiles/ci.gemfile --jobs 4 --retry 3
+        bundle install --gemfile gemfiles/ci.gemfile --jobs 4 --retry 3 --quiet
         DB=postgresql bundle exec --gemfile gemfiles/ci.gemfile rspec
