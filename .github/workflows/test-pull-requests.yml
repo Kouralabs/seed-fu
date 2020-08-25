@@ -30,11 +30,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: seed_fu_test
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
     - uses: actions/checkout@v2
@@ -46,7 +42,7 @@ jobs:
       env:
         RAILS_ENV: test
         RAILS_VERSION: ${{ matrix.RAILS_VERSION }}
-        POSTGRES_HOST: postgres
+        POSTGRES_HOST: localhost
         POSTGRES_USER: postgres
         POSTGRES_PASS: postgres
         POSTGRES_DB: seed_fu_test
