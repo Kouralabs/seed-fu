@@ -6,5 +6,5 @@ ActiveRecord::Base.establish_connection(
   host: ENV.fetch('MYSQL_HOST', '127.0.0.1'),
   username: ENV.fetch('MYSQL_USER', 'postgres'),
   password: ENV.fetch('MYSQL_PASSWORD', 'postgres'),
-  post: ENV.fetch('MYSQL_PORT', 3306)
+  port: ENV.fetch('MYSQL_PORT', 3306)
 )

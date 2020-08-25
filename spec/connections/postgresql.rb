@@ -6,5 +6,5 @@ ActiveRecord::Base.establish_connection(
   host: ENV.fetch('POSTGRES_HOST', 'localhost'),
   username: ENV.fetch('POSTGRES_USER', 'postgres'),
   password: ENV.fetch('POSTGRES_PASS', 'postgres'),
-  post: ENV.fetch('POSTGRES_PORT', 5432)
+  port: ENV.fetch('POSTGRES_PORT', 5432)
 )
