@@ -29,7 +29,7 @@ jobs:
             #- 3.1.0
 
     runs-on: ${{ matrix.os }}-latest
-    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' }} || ${{ endsWith(matrix.RAILS_VERSION, 'head') }}
+    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' || endsWith(matrix.RAILS_VERSION, 'head') }}
 
     services:
       postgres:
