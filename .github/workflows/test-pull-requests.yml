@@ -9,8 +9,8 @@ jobs:
       matrix:
         #os: [ubuntu, macos, windows]
         os: [ubuntu]
-        #db: [mysql, postgres, sqlite3]
-        db: [postgres]
+        #db: [mysql, postgresql, sqlite3]
+        db: [mysql]
         ruby:
           #- head
           - 2.7
@@ -36,7 +36,6 @@ jobs:
 
     services:
       postgres:
-        if: ${{ matrix.db == 'postgres' }}
         image: postgres:11
         ports: ['5432:5432']
         env:
@@ -44,6 +43,16 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: seed_fu_test
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+      mariadb:
+        image: mariadb:latest
+        ports:
+          - 3306
+        env:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: seed_fu_test
+          MYSQL_ROOT_PASSWORD: password
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
     steps:
     - uses: actions/checkout@v2
@@ -60,8 +69,13 @@ jobs:
         POSTGRES_PASS: postgres
         POSTGRES_DB: seed_fu_test
         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+        MYSQL_USER: user
+        MYSQL_HOST: localhost
+        MYSQL_PASSWORD: password
+        MYSQL_DATABASE: seed_fu_test
+        MYSQL_PORT: ${{ job.services.mariadb.ports[3306] }}
       run: |
         sudo apt-get -yqq install libpq-dev libmysqlclient-dev libsqlite3-dev
         gem install bundler -q
         bundle install --gemfile gemfiles/ci.gemfile --jobs 4 --retry 3 --quiet
-        DB=postgresql bundle exec --gemfile gemfiles/ci.gemfile rspec
+        DB=${{ matrix.db }} bundle exec --gemfile gemfiles/ci.gemfile rspec
