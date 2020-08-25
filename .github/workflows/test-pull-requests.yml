@@ -2,25 +2,34 @@ name: Run tests and linters
 
 on: [push, pull_request]
 
-#runs-on:
-
 jobs:
   build:
-    runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false
       matrix:
-        #os: [ubuntu-18.04]
+        os: [ubuntu, macos, windows]
+        ruby:
+          - head
+          - 2.7
+            #- 2.6
+            #- 2.5
+            #- 2.4
+            #- 2.3
+            #- 2.2
+            #- 2.1
         RAILS_VERSION:
+          - head
           - 6.0.0
-          - 5.2.0
-          - 5.1.0
+            #- 5.2.0
+            #- 5.1.0
             #- 5.0.0
             #- 4.2.0
             #- 4.1.0
             #- 3.2.0
             #- 3.1.0
+
+    runs-on: ${{ matrix.os }}-latest
+    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' }} || ${{ endsWith(matrix.RAILS_VERSION, 'head') }}
 
     services:
       postgres:
@@ -34,10 +43,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6
+        ruby-version: ${{ matrix.ruby }}
     - name: Build and test
       env:
         RAILS_ENV: test
