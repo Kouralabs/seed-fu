@@ -23,7 +23,7 @@ jobs:
             #- 3.1.0
 
     services:
-      db:
+      postgres:
         image: postgres:11
         ports: ['5432:5432']
         env:
