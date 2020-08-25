@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         #os: [ubuntu-18.04]
-        fail-fast: false
         RAILS_VERSION:
           - 6.0.0
           - 5.2.0
