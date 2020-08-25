@@ -46,6 +46,10 @@ jobs:
       env:
         RAILS_ENV: test
         RAILS_VERSION: ${{ matrix.RAILS_VERSION }}
+        POSTGRES_HOST: postgres
+        POSTGRES_USER: postgres
+        POSTGRES_PASS: postgres
+        POSTGRES_DB: seed_fu_test
       run: |
         sudo apt-get -yqq install libpq-dev libmysqlclient-dev libsqlite3-dev
         gem install bundler
