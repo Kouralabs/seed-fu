@@ -5,11 +5,12 @@ on: [push, pull_request]
 jobs:
   build:
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
-        os: [ubuntu, macos, windows]
+        #os: [ubuntu, macos, windows]
+        os: [ubuntu]
         ruby:
-          - head
+          #- head
           - 2.7
             #- 2.6
             #- 2.5

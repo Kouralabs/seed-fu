@@ -5,6 +5,14 @@ $LOAD_PATH.unshift lib unless $LOAD_PATH.include?(lib)
 
 require 'seed-fu/version'
 
+def latest_sqlite3?
+  rails_version = ENV['RAILS_VERSION']
+
+  return true if rails_version.nil? || rails_version == 'head'
+
+  Gem::Version.new(rails_version) >= Gem::Version.new('6.0.0')
+end
+
 Gem::Specification.new do |s|
   s.name        = 'seed-fu'
   s.version     = SeedFu::VERSION
@@ -25,7 +33,7 @@ Gem::Specification.new do |s|
 
   rails_version = ENV['RAILS_VERSION']
 
-  if rails_version.nil? || Gem::Version.new(rails_version) >= Gem::Version.new('6.0.0')
+  if latest_sqlite3?
     s.add_development_dependency 'sqlite3'
   else
     # sqlite3 1.4.0 does not work with older versions
