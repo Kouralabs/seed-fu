@@ -9,6 +9,8 @@ jobs:
       matrix:
         #os: [ubuntu, macos, windows]
         os: [ubuntu]
+        #db: [mysql, postgres, sqlite3]
+        db: [mysql]
         ruby:
           #- head
           - 2.7
@@ -19,7 +21,7 @@ jobs:
             #- 2.2
             #- 2.1
         RAILS_VERSION:
-          - head
+          # - head
           - 6.0.0
             #- 5.2.0
             #- 5.1.0
@@ -60,6 +62,5 @@ jobs:
       run: |
         sudo apt-get -yqq install libpq-dev libmysqlclient-dev libsqlite3-dev
         gem install bundler -q
-        echo "what ${{ matrix.RAILS_VERSION }}"
         bundle install --gemfile gemfiles/ci.gemfile --jobs 4 --retry 3 --quiet
         DB=postgresql bundle exec --gemfile gemfiles/ci.gemfile rspec
