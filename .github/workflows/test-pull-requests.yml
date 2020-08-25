@@ -70,7 +70,8 @@ jobs:
         POSTGRES_DB: seed_fu_test
         POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
         MYSQL_USER: user
-        MYSQL_HOST: localhost
+        # localhost in mysql reverts to domain socket
+        MYSQL_HOST: 127.0.0.1
         MYSQL_PASSWORD: password
         MYSQL_DATABASE: seed_fu_test
         MYSQL_PORT: ${{ job.services.mariadb.ports[3306] }}
