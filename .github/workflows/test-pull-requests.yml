@@ -10,7 +10,7 @@ jobs:
         #os: [ubuntu, macos, windows]
         os: [ubuntu]
         #db: [mysql, postgresql, sqlite3]
-        db: [mysql]
+        db: [sqlite3]
         ruby:
           #- head
           - 2.7
