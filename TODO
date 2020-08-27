@@ -1,2 +1,3 @@
 document supported rails versions
 document supported ruby versions
+rails versions before 6 don't support head ruby
