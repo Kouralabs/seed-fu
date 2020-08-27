@@ -32,8 +32,6 @@ ActiveRecord::Schema.define version: 0 do
   execute('ALTER TABLE seeded_model_no_sequences ADD PRIMARY KEY (id)') if ENV['DB'] == 'postgresql'
 end
 
-def wrap_ar_cb; end
-
 class SeededModel < ActiveRecord::Base
   validates_presence_of :title
   attr_protected :first_name if respond_to?(:protected_attributes)
