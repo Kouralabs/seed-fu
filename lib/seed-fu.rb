@@ -11,9 +11,13 @@ module SeedFu
   autoload :Writer,                'seed-fu/writer'
 
   mattr_accessor :quiet
+  mattr_accessor :validate_models
 
   # Set `SeedFu.quiet = true` to silence all output
   @@quiet = false
+
+  # Set `SeedFu.validate_models = true` to run ActiveRecord validations
+  @@validate_models = false
 
   mattr_accessor :fixture_paths
 
@@ -27,6 +31,19 @@ module SeedFu
   # @param [Regexp] filter If given, only filenames matching this expression will be loaded
   def self.seed(fixture_paths = SeedFu.fixture_paths, filter = nil)
     Runner.new(fixture_paths, filter).run
+  end
+
+  def self.with_options(quiet: false, validate_models: false)
+    original_quiet = self.quiet
+    original_validate_models = self.validate_models
+
+    self.quiet = quiet
+    self.validate_models = validate_models
+
+    yield
+
+    self.quiet = original_quiet
+    self.validate_models = original_validate_models
   end
 end
 
