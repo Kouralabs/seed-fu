@@ -70,6 +70,5 @@ jobs:
         MYSQL_PORT: ${{ job.services.mariadb.ports[3306] }}
       run: |
         sudo apt-get -yqq install libpq-dev libmysqlclient-dev libsqlite3-dev
-        gem install bundler -q
         bundle install --gemfile gemfiles/ci.gemfile --jobs 4 --retry 3 --quiet
         DB=${{ matrix.db }} bundle exec --gemfile gemfiles/ci.gemfile rspec
