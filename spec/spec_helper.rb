@@ -61,6 +61,10 @@ class SeededModelNoSequence < ActiveRecord::Base
 end
 
 RSpec.configure do |config|
+  config.expect_with :rspec do |expectations|
+    expectations.syntax = :expect
+  end
+
   config.before do
     SeededModel.delete_all
   end
