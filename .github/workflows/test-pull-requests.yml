@@ -7,29 +7,24 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        #os: [ubuntu, macos, windows]
-        os: [ubuntu]
-        #db: [mysql, postgresql, sqlite3]
-        db: [sqlite3]
+        os: [ubuntu, macos, windows]
+        db: [mysql, postgresql, sqlite3]
         ruby:
-          #- head
+          - head
           - 2.7
-            #- 2.6
-            #- 2.5
-            #- 2.4
-            #- 2.3
-            #- 2.2
-            #- 2.1
+          - 2.6
+          - 2.5
+          - 2.4
+          - 2.3
+          - 2.2
         RAILS_VERSION:
           # - head
           - 6.0.0
-            #- 5.2.0
-            #- 5.1.0
-            #- 5.0.0
-            #- 4.2.0
-            #- 4.1.0
-            #- 3.2.0
-            #- 3.1.0
+          - 5.2.0
+          - 5.1.0
+          - 5.0.0
+          - 4.2.0
+          - 4.1.0
 
     runs-on: ${{ matrix.os }}-latest
     continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' || endsWith(matrix.RAILS_VERSION, 'head') }}
