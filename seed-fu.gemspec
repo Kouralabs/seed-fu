@@ -40,8 +40,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pg'
   s.add_development_dependency 'rspec', '~> 3.9'
 
-  rails_version = ENV['RAILS_VERSION']
-
   if latest_sqlite3?
     s.add_development_dependency 'sqlite3'
   else
