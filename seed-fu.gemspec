@@ -32,13 +32,13 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '~> 3.9'
 
   if latest_sqlite3?
-    #s.add_development_dependency 'sqlite3'
+    s.add_development_dependency 'sqlite3'
   else
     # sqlite3 1.4.0 does not work with older versions
     # of rails and the gemfiles don't specify the version,
     # so we lock an older version for older rails versions
+    s.add_development_dependency 'sqlite3', '~> 1.3.6'
   end
-  s.add_development_dependency 'sqlite3', '>= 1.3.6'
 
   s.files        = Dir.glob('{lib}/**/*') + %w[LICENSE README.md CHANGELOG.md]
   s.require_path = 'lib'
