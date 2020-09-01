@@ -5,15 +5,5 @@
 # Install dependencies
 sudo apt-get -yqq install libpq-dev libmysqlclient-dev libsqlite3-dev
 
-# We only test on rubies provided by ruby/setup-ruby. We take the latest
-# ones until we hit our build matrix limit. These versions ship with bundler
-# 2 and rails 4 doesn't support it. So we have to manually install an older
-# version
-if [[ "$RAILS_VERSION" == 4* ]];
-then
-  gem install "bundler:1.17.3"
-  BUNDLER_VERSION="1.17.3"
-fi
-
 bundle install --gemfile gemfiles/ci.gemfile --jobs 4 --retry 3 --quiet
 bundle exec --gemfile gemfiles/ci.gemfile rspec

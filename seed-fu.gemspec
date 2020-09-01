@@ -13,10 +13,6 @@ def latest_sqlite3?
   Gem::Version.new(rails_version) >= Gem::Version.new('6.0.0')
 end
 
-def rails_4?
-  ENV.fetch('RAILS_VERSION', '').start_with? '4'
-end
-
 Gem::Specification.new do |s|
   s.name        = 'seed-fu'
   s.version     = SeedFu::VERSION
@@ -31,12 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'activerecord', ['>= 3.1']
   s.add_dependency 'activesupport', ['>= 3.1']
 
-  if rails_4?
-    s.add_development_dependency 'mysql2', '~> 0.3.13'
-  else
-    s.add_development_dependency 'mysql2'
-  end
-
+  s.add_development_dependency 'mysql2'
   s.add_development_dependency 'pg'
   s.add_development_dependency 'rspec', '~> 3.9'
 
