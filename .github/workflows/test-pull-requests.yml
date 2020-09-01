@@ -68,7 +68,6 @@ jobs:
         MYSQL_PASSWORD: password
         MYSQL_DATABASE: seed_fu_test
         MYSQL_PORT: ${{ job.services.mariadb.ports[3306] }}
+        DB: ${{ matrix.db }}
       run: |
-        sudo apt-get -yqq install libpq-dev libmysqlclient-dev libsqlite3-dev
-        bundle install --gemfile gemfiles/ci.gemfile --jobs 4 --retry 3 --quiet
-        DB=${{ matrix.db }} bundle exec --gemfile gemfiles/ci.gemfile rspec
+        ./ci/run
