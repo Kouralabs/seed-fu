@@ -9,8 +9,9 @@ sudo apt-get -yqq install libpq-dev libmysqlclient-dev libsqlite3-dev
 # ones until we hit our build matrix limit. These versions ship with bundler
 # 2 and rails 4 doesn't support it. So we have to manually install an older
 # version
-if [ "$RAILS_VERSION" == 4* ];
+if [[ "$RAILS_VERSION" == 4* ]];
 then
+  gem install bundler:1.17.3
   BUNDLER_VERSION="_1.17.3_"
 fi
 
